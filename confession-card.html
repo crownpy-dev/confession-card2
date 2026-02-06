@@ -504,20 +504,20 @@
 
         <div class="final-message" id="finalMessage">
             <div class="success-emoji">✨</div>
-            <h1>ได้ช่อดอกไม้สวยๆ!</h1>
+            <h1 id="finalTitle">ได้ช่อดอกไม้สวยๆ!</h1>
             <div class="gift-card">
                 <!-- ใส่รูปช่อดอกไม้ตรงนี้ - เปลี่ยน src ให้เป็น path รูปของคุณ -->
-                <img src="bouquet.jpg" alt="Beautiful Bouquet" class="bouquet-image" id="bouquetImage">
+                <img src="" alt="Beautiful Bouquet" class="bouquet-image" id="bouquetImage">
                 <!-- หรือใช้ emoji แทนถ้าไม่มีรูป -->
                 <span class="gift-image" id="giftEmoji" style="display: none;">💐</span>
                 
-                <p class="gift-message">
+                <p class="gift-message" id="finalGiftMessage">
                     ดอกไม้พวกนี้เป็นตัวแทนความรู้สึกที่มีให้ - สวยงาม จริงใจ และเต็มไปด้วยความหวัง 
                     รอไปเดทกันไม่ไหวแล้ว! 🌸
                 </p>
                 
                 <!-- ปุ่มติดต่อ - เปลี่ยน href เป็นลิงก์ที่ต้องการ -->
-                <a href="https://line.me/ti/p/YOUR_LINE_ID" class="contact-btn" target="_blank">
+                <a href="https://linktr.ee/Crownpy?utm_source=linktree_profile_share&ltsid=28a0255e-2dea-44f6-be45-2af8f33c06db" class="contact-btn" target="_blank">
                     ติดต่อเรา 💌
                 </a>
             </div>
@@ -671,18 +671,50 @@
             }, 2000);
         });
 
-        // Reveal gift function
+        // Reveal gift function - แต่ละกล่องมีของขวัญต่างกัน
         function revealGift(boxIndex) {
             const bouquetImg = document.getElementById('bouquetImage');
             const giftEmoji = document.getElementById('giftEmoji');
+            const finalTitle = document.getElementById('finalTitle');
+            const finalGiftMessage = document.getElementById('finalGiftMessage');
+            
+            // กำหนดรูปและข้อความสำหรับแต่ละกล่อง
+            const gifts = [
+                {
+                    image: 'b01.jpg',
+                    emoji: '🌹',
+                    title: 'ได้ช่อกุหลาบแดงในห่อดำสวยๆ!',
+                    message: 'กุหลาบแดงในห่อสีดำ เป็นสัญลักษณ์ของความรักที่ลึกซึ้งและหรูหรา ทุกกลีบดอกกุหลาบสื่อถึงหัวใจที่เต้นเพื่อเธอคนเดียว ความรักที่มีให้นั้นแรงกล้าและไม่มีวันจางหาย 🖤🌹'
+                },
+                {
+                    image: 'b02.jpg',
+                    emoji: '💕',
+                    title: 'ได้ช่อกุหลาบชมพูในห่อขาวสวยๆ!',
+                    message: 'กุหลาบชมพูในห่อสีขาว บริสุทธิ์และอ่อนหวานดังดวงใจ ทุกดอกเป็นตัวแทนของความรู้สึกที่อ่อนโยนและจริงใจ เหมือนสัมผัสแรกที่ทำให้หัวใจเต้นแรง รอวันที่ได้มอบดอกไม้นี้ให้ด้วยมือตัวเอง 🤍💗'
+                },
+                {
+                    image: 'b03.jpg',
+                    emoji: '🌸',
+                    title: 'ได้ช่อพีโอนีชมพูในห่อดำสวยๆ!',
+                    message: 'พีโอนีชมพูในห่อสีดำ สง่างามและเต็มไปด้วยความหมาย ดอกพีโอนีคือสัญลักษณ์ของความโรแมนติกและความสุขที่ยั่งยืน ทุกกลีบดอกกระซิบบอกเล่าว่า...อยากให้เราได้ใช้เวลาร่วมกันมากขึ้น 🖤🌸'
+                }
+            ];
+            
+            const selectedGift = gifts[boxIndex];
+            
+            // อัพเดทข้อความ
+            finalTitle.textContent = selectedGift.title;
+            finalGiftMessage.textContent = selectedGift.message;
+            
+            // ตั้งค่ารูป
+            bouquetImg.src = selectedGift.image;
             
             // Check if image exists and loads successfully
             bouquetImg.onerror = function() {
                 // If image fails to load, show emoji instead
                 bouquetImg.style.display = 'none';
                 giftEmoji.style.display = 'block';
-                const randomFlower = flowers[Math.floor(Math.random() * flowers.length)];
-                giftEmoji.textContent = randomFlower;
+                giftEmoji.textContent = selectedGift.emoji;
             };
             
             bouquetImg.onload = function() {
