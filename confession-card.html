@@ -143,6 +143,7 @@
             color: white;
             box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
             position: static;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .yes-btn:hover {
@@ -460,10 +461,14 @@
         <div id="question-content">
             <div class="emoji">
                 <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M50 20C50 20 30 30 30 50C30 70 45 85 50 85C55 85 70 70 70 50C70 30 50 20 50 20Z" fill="#ff6b9d"/>
-                    <path d="M50 15C50 15 25 28 25 55C25 75 42 92 50 92C58 92 75 75 75 55C75 28 50 15 50 15Z" stroke="#ff8fab" stroke-width="2" fill="none"/>
-                    <circle cx="45" cy="50" r="3" fill="white" opacity="0.6"/>
-                    <path d="M35 45 Q40 40 45 45" stroke="#fff" stroke-width="2" fill="none" opacity="0.3"/>
+                    <!-- หัวใจสีชมพู -->
+                    <path d="M50 85 C20 60, 10 40, 10 28 C10 15, 20 8, 30 8 C40 8, 45 15, 50 20 C55 15, 60 8, 70 8 C80 8, 90 15, 90 28 C90 40, 80 60, 50 85 Z" 
+                          fill="#ff6b9d"
+                          stroke="#ff8fab" 
+                          stroke-width="2"/>
+                    <!-- จุดไฮไลท์ -->
+                    <circle cx="35" cy="25" r="5" fill="white" opacity="0.5"/>
+                    <circle cx="40" cy="30" r="3" fill="white" opacity="0.3"/>
                 </svg>
             </div>
             <h1>มีเรื่องอยากบอก...</h1>
@@ -559,6 +564,8 @@
 
         let noDodgeCount = 0;
         let isNoBtnMoving = false;
+        let yesBtnScale = 1; // เก็บขนาดปุ่ม Yes
+        
         const noTexts = [
             'ไม่ได้น่า',
             'แน่ใจแล้วเหรอ?',
@@ -630,6 +637,15 @@
             const textIndex = Math.min(noDodgeCount, noTexts.length - 1);
             noBtn.textContent = noTexts[textIndex];
             
+            // ทำให้ปุ่ม Yes ใหญ่ขึ้นเรื่อยๆ (เพิ่ม 15% ทุกครั้ง แต่ไม่เกิน 2.5 เท่า)
+            yesBtnScale = Math.min(yesBtnScale + 0.15, 2.5);
+            yesBtn.style.transform = `scale(${yesBtnScale})`;
+            
+            // เพิ่มขนาด font ด้วย
+            const baseFontSize = 18;
+            const newFontSize = baseFontSize * yesBtnScale;
+            yesBtn.style.fontSize = `${newFontSize}px`;
+            
             setTimeout(() => {
                 isNoBtnMoving = false;
             }, 300);
@@ -699,7 +715,7 @@
                     message: 'กุหลาบชมพูในห่อสีขาว บริสุทธิ์และอ่อนหวานดังดวงใจ ทุกดอกเป็นตัวแทนของความรู้สึกที่อ่อนโยนและจริงใจ เหมือนสัมผัสแรกที่ทำให้หัวใจเต้นแรง รอวันที่ได้มอบดอกไม้นี้ให้ด้วยมือตัวเอง ♡'
                 },
                 {
-                    image: 'b04.jpg',
+                    image: 'b03.jpg',
                     emoji: '❀',
                     title: 'ได้ช่อพีโอนีชมพูในห่อดำสวยๆ!',
                     message: 'พีโอนีชมพูในห่อสีดำ สง่างามและเต็มไปด้วยความหมาย ดอกพีโอนีคือสัญลักษณ์ของความโรแมนติกและความสุขที่ยั่งยืน ทุกกลีบดอกกระซิบบอกเล่าว่า...อยากให้เราได้ใช้เวลาร่วมกันมากขึ้น ✿'
