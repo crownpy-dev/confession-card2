@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>มีเรื่องอยากบอก 💝</title>
+    <title>มีเรื่องอยากบอก ♥</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
@@ -34,6 +34,7 @@
             opacity: 0.1;
             animation: float 15s infinite;
             pointer-events: none;
+            color: #ff6b9d;
         }
 
         @keyframes float {
@@ -42,10 +43,10 @@
                 opacity: 0;
             }
             10% {
-                opacity: 0.1;
+                opacity: 0.15;
             }
             90% {
-                opacity: 0.1;
+                opacity: 0.15;
             }
             100% {
                 transform: translateY(-100vh) rotate(360deg);
@@ -80,10 +81,13 @@
         }
 
         .emoji {
-            font-size: 64px;
             margin-bottom: 24px;
             display: inline-block;
             animation: pulse 2s ease-in-out infinite;
+        }
+
+        .emoji svg {
+            filter: drop-shadow(0 4px 8px rgba(255, 107, 157, 0.3));
         }
 
         @keyframes pulse {
@@ -119,13 +123,6 @@
             min-height: 60px;
             width: 100%;
             margin-top: 20px;
-        }
-        
-        @media (max-width: 600px) {
-            .button-container {
-                min-height: 60px;
-                flex-wrap: wrap;
-            }
         }
 
         button {
@@ -172,10 +169,6 @@
                         transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
-        .no-btn:hover {
-            background: #e0e0e0;
-        }
-
         /* Success state */
         .success-message {
             display: none;
@@ -218,8 +211,40 @@
 
         .success-text {
             color: #333;
-            font-size: 20px;
-            line-height: 1.6;
+            font-size: 19px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        /* Countdown timer */
+        .countdown {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .countdown-circle {
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+
+        .countdown-number {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 48px;
+            font-weight: 600;
+            color: #ff6b9d;
+        }
+
+        .countdown-text {
+            color: #999;
+            font-size: 15px;
+            font-style: italic;
         }
 
         /* Gift selection screen */
@@ -305,7 +330,6 @@
             animation: floatGift 3s ease-in-out infinite;
         }
 
-        /* Image for bouquet */
         .bouquet-image {
             max-width: 100%;
             height: auto;
@@ -333,7 +357,6 @@
             margin-top: 20px;
         }
 
-        /* Contact button */
         .contact-btn {
             display: inline-block;
             margin-top: 30px;
@@ -353,30 +376,6 @@
             box-shadow: 0 6px 20px rgba(255, 107, 157, 0.6);
         }
 
-        .contact-btn:active {
-            transform: translateY(0);
-        }
-
-        @media (max-width: 600px) {
-            .gift-btn {
-                min-width: 85px;
-                min-height: 85px;
-                font-size: 42px;
-            }
-
-            .gift-image {
-                font-size: 100px;
-            }
-
-            .bouquet-image {
-                max-height: 200px;
-            }
-
-            .gift-card {
-                padding: 30px 20px;
-            }
-        }
-
         /* Mobile responsiveness */
         @media (max-width: 600px) {
             body {
@@ -388,9 +387,9 @@
                 border-radius: 20px;
             }
 
-            .emoji {
-                font-size: 52px;
-                margin-bottom: 20px;
+            .emoji svg {
+                width: 70px;
+                height: 70px;
             }
 
             h1 {
@@ -408,6 +407,7 @@
                 min-height: 60px;
                 gap: 12px;
                 margin-top: 15px;
+                flex-wrap: wrap;
             }
 
             button {
@@ -425,37 +425,23 @@
                 font-size: 17px;
             }
 
-            .contact-btn {
-                padding: 14px 32px;
-                font-size: 16px;
+            .gift-btn {
+                min-width: 85px;
+                min-height: 85px;
+                font-size: 42px;
             }
-        }
 
-        @media (max-width: 400px) {
-            .card {
+            .bouquet-image {
+                max-height: 200px;
+            }
+
+            .gift-card {
                 padding: 30px 20px;
             }
 
-            .emoji {
-                font-size: 48px;
-            }
-
-            h1 {
-                font-size: 20px;
-            }
-
-            .message {
-                font-size: 15px;
-            }
-
-            button {
-                padding: 12px 24px;
-                font-size: 15px;
-                min-width: 110px;
-            }
-
-            .button-container {
-                min-height: 60px;
+            .contact-btn {
+                padding: 14px 32px;
+                font-size: 16px;
             }
         }
 
@@ -472,28 +458,50 @@
     <!-- Card container -->
     <div class="card">
         <div id="question-content">
-            <div class="emoji">💝</div>
+            <div class="emoji">
+                <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 20C50 20 30 30 30 50C30 70 45 85 50 85C55 85 70 70 70 50C70 30 50 20 50 20Z" fill="#ff6b9d"/>
+                    <path d="M50 15C50 15 25 28 25 55C25 75 42 92 50 92C58 92 75 75 75 55C75 28 50 15 50 15Z" stroke="#ff8fab" stroke-width="2" fill="none"/>
+                    <circle cx="45" cy="50" r="3" fill="white" opacity="0.6"/>
+                    <path d="M35 45 Q40 40 45 45" stroke="#fff" stroke-width="2" fill="none" opacity="0.3"/>
+                </svg>
+            </div>
             <h1>มีเรื่องอยากบอก...</h1>
             <p class="message">
-               will you be my valentine 🥰
+               will you be my valentine ♥
             </p>
             <div class="button-container" id="buttonContainer">
-                <button class="yes-btn" id="yesBtn">ได้สิ! 💕</button>
+                <button class="yes-btn" id="yesBtn">ได้สิ! ♥</button>
                 <button class="no-btn" id="noBtn">ไม่ได้น่า</button>
             </div>
         </div>
 
         <div class="success-message" id="successMessage">
-            <div class="success-emoji">🎉</div>
-            <h1>เย่! ดีใจมากเลย!</h1>
+            <div class="success-emoji">✨</div>
+            <h1>ดีใจจนหัวใจเต้นแรง...</h1>
             <p class="success-text">
-                ขอบคุณที่ตอบตกลงนะ! 😊<br>
-                เป็นของขวัญน้อยๆ เลือกกล่องด้านล่างสักกล่องนึงเลย! 🎁
+                ตอนนี้หัวใจเต้นแรงมากเลย ♥<br>
+                ขอบคุณที่ทำให้วันนี้กลายเป็นวันที่พิเศษของเรา made my day มากเลยย<br>
+                รอคอยวันที่จะได้ใช้เวลาร่วมกัน อย่างใจจดใจจ่อ<br>
+                แค่คิดก็ยิ้มแล้ว
             </p>
+            <div class="countdown" id="countdown">
+                <div class="countdown-circle">
+                    <svg width="120" height="120" viewBox="0 0 120 120">
+                        <circle cx="60" cy="60" r="54" fill="none" stroke="#ffe8ec" stroke-width="8"/>
+                        <circle id="countdownCircle" cx="60" cy="60" r="54" fill="none" stroke="#ff6b9d" stroke-width="8" 
+                                stroke-dasharray="339.292" stroke-dashoffset="0" 
+                                transform="rotate(-90 60 60)"
+                                style="transition: stroke-dashoffset 1s linear"/>
+                    </svg>
+                    <div class="countdown-number" id="countdownNumber">5</div>
+                </div>
+                <p class="countdown-text">กำลังเตรียมของขวัญพิเศษ...</p>
+            </div>
         </div>
 
         <div class="gift-selection" id="giftSelection">
-            <h2 class="gift-title">เลือกของขวัญสิ! 🎁</h2>
+            <h2 class="gift-title">เลือกของขวัญสิ! ♥</h2>
             <p class="gift-subtitle">เลือกกล่องลึกลับด้านล่างสักกล่อง</p>
             <div class="gift-buttons">
                 <button class="gift-btn" onclick="revealGift(0)">🎁</button>
@@ -506,19 +514,16 @@
             <div class="success-emoji">✨</div>
             <h1 id="finalTitle">ได้ช่อดอกไม้สวยๆ!</h1>
             <div class="gift-card">
-                <!-- ใส่รูปช่อดอกไม้ตรงนี้ - เปลี่ยน src ให้เป็น path รูปของคุณ -->
                 <img src="" alt="Beautiful Bouquet" class="bouquet-image" id="bouquetImage">
-                <!-- หรือใช้ emoji แทนถ้าไม่มีรูป -->
-                <span class="gift-image" id="giftEmoji" style="display: none;">💐</span>
+                <span class="gift-image" id="giftEmoji" style="display: none;">♥</span>
                 
                 <p class="gift-message" id="finalGiftMessage">
                     ดอกไม้พวกนี้เป็นตัวแทนความรู้สึกที่มีให้ - สวยงาม จริงใจ และเต็มไปด้วยความหวัง 
-                    รอไปเดทกันไม่ไหวแล้ว! 🌸
+                    รอไปเดทกันไม่ไหวแล้ว ♥
                 </p>
                 
-                <!-- ปุ่มติดต่อ - เปลี่ยน href เป็นลิงก์ที่ต้องการ -->
                 <a href="https://linktr.ee/Crownpy?utm_source=linktree_profile_share&ltsid=28a0255e-2dea-44f6-be45-2af8f33c06db" class="contact-btn" target="_blank">
-                    ติดต่อเรา 💌
+                    ติดต่อเรา ♥
                 </a>
             </div>
         </div>
@@ -527,7 +532,7 @@
     <script>
         // Create floating hearts in background
         function createFloatingHearts() {
-            const hearts = ['💕', '💖', '💗', '💝', '❤️', '💓'];
+            const hearts = ['♥', '♡', '❤', '❥', '❣'];
             const body = document.body;
             
             for (let i = 0; i < 15; i++) {
@@ -552,36 +557,32 @@
         const giftSelection = document.getElementById('giftSelection');
         const finalMessage = document.getElementById('finalMessage');
 
-        // Different flower bouquets (all are flowers)
-        const flowers = ['💐', '🌹', '🌺', '🌻', '🌷', '🌸', '🏵️', '💮'];
-
         let noDodgeCount = 0;
         let isNoBtnMoving = false;
         const noTexts = [
             'ไม่ได้น่า',
-            'แน่ใจแล้วเหรอ? 🤔',
-            'จริงๆ เหรอ? 😢',
-            'ลองคิดใหม่ดูสิ! 💭',
-            'ได้มั้ยยยย? 🥺',
-            'ขอโอกาสสักครั้งได้มั้ย? 🙏',
-            'สนุกแน่ๆ เลย! 😊',
-            'อ้อนน่า... 😔',
-            'หัวใจจะแตก 💔',
-            'อีกทีนึงได้มั้ย? 🎯',
-            'ไม่ยอมแพ้! 💪',
-            'ลองคิดดูอีกทีสิ? 🤗',
-            'ได้โปรดเถอะ? 😇',
-            'เชื่อมั่นในเราเลย! ✨',
-            'อย่าอายน่า! 😳',
-            'เสี่ยงสักครั้งสิ! 🎲',
-            'รู้ว่าอยากกดใช่ 😏',
-            'โอกาสสุดท้าย? ⭐',
-            'ไม่ยอมแพ้หรอก! 🔥',
-            'ปุ่มใช่อยู่ตรงนั้น → 👀',
-            'เริ่ด'
+            'แน่ใจแล้วเหรอ?',
+            'จริงๆ เหรอ?',
+            'ลองคิดใหม่ดูสิ!',
+            'ได้มั้ยยยย?',
+            'ขอโอกาสสักครั้งได้มั้ย?',
+            'สนุกแน่ๆ เลย!',
+            'อ้อนน่า...',
+            'หัวใจจะแตก ♡',
+            'อีกทีนึงได้มั้ย?',
+            'ไม่ยอมแพ้!',
+            'ลองคิดดูอีกทีสิ?',
+            'ได้โปรดเถอะ?',
+            'เชื่อมั่นในเราเลย!',
+            'อย่าอายน่า!',
+            'เสี่ยงสักครั้งสิ!',
+            'รู้ว่าอยากกดใช่',
+            'โอกาสสุดท้าย?',
+            'ไม่ยอมแพ้หรอก!',
+            'ปุ่มใช่อยู่ตรงนั้น →'
         ];
 
-        // Preset positions for No button (spread across the container)
+        // Preset positions for No button
         const presetPositions = [
             { x: '10%', y: '10%' },
             { x: '30%', y: '10%' },
@@ -603,7 +604,6 @@
         
         let lastPositionIndex = -1;
         
-        // Function to get a random position different from current
         function getRandomPosition() {
             let availablePositions = presetPositions.map((pos, idx) => ({ pos, idx }))
                 .filter((item, idx) => idx !== lastPositionIndex);
@@ -614,127 +614,123 @@
             return selected.pos;
         }
 
-        // Move No button on hover/touch
         function moveNoButton() {
             if (isNoBtnMoving) return;
             isNoBtnMoving = true;
             
-            // Add moving class to change positioning to absolute
             noBtn.classList.add('moving');
-            
-            // Get new position
             const pos = getRandomPosition();
-            
-            // Expand container if needed
             buttonContainer.style.minHeight = '200px';
             
-            // Use percentage-based positioning
             noBtn.style.left = pos.x;
             noBtn.style.top = pos.y;
             noBtn.style.transform = 'translate(-50%, -50%)';
             
-            // Update text based on dodge count
             noDodgeCount++;
             const textIndex = Math.min(noDodgeCount, noTexts.length - 1);
             noBtn.textContent = noTexts[textIndex];
             
-            // Reset moving flag after animation
             setTimeout(() => {
                 isNoBtnMoving = false;
             }, 300);
         }
 
-        // Event listeners for No button
         noBtn.addEventListener('mouseenter', moveNoButton);
         noBtn.addEventListener('touchstart', (e) => {
             e.preventDefault();
             moveNoButton();
         });
-
         noBtn.addEventListener('click', (e) => {
             e.preventDefault();
             moveNoButton();
         });
 
-        // Yes button click handler
+        // Yes button - show countdown
         yesBtn.addEventListener('click', () => {
             questionContent.style.display = 'none';
             successMessage.classList.add('active');
-            
-            // Create confetti effect
             createConfetti();
-
-            // Show gift selection after 2 seconds
-            setTimeout(() => {
-                successMessage.classList.remove('active');
-                giftSelection.classList.add('active');
-            }, 2000);
+            startCountdown();
         });
 
-        // Reveal gift function - แต่ละกล่องมีของขวัญต่างกัน
+        // Countdown function
+        function startCountdown() {
+            let count = 5;
+            const countdownNumber = document.getElementById('countdownNumber');
+            const countdownCircle = document.getElementById('countdownCircle');
+            const circumference = 2 * Math.PI * 54; // 54 is the radius
+            
+            const interval = setInterval(() => {
+                count--;
+                countdownNumber.textContent = count;
+                
+                // Update circle
+                const offset = circumference - (count / 5) * circumference;
+                countdownCircle.style.strokeDashoffset = offset;
+                
+                if (count === 0) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        successMessage.classList.remove('active');
+                        giftSelection.classList.add('active');
+                    }, 500);
+                }
+            }, 1000);
+        }
+
+        // Reveal gift function
         function revealGift(boxIndex) {
             const bouquetImg = document.getElementById('bouquetImage');
             const giftEmoji = document.getElementById('giftEmoji');
             const finalTitle = document.getElementById('finalTitle');
             const finalGiftMessage = document.getElementById('finalGiftMessage');
             
-            // กำหนดรูปและข้อความสำหรับแต่ละกล่อง
             const gifts = [
                 {
                     image: 'b01.jpg',
                     emoji: '🌹',
                     title: 'ได้ช่อกุหลาบแดงในห่อดำสวยๆ!',
-                    message: 'กุหลาบแดงในห่อสีดำ เป็นสัญลักษณ์ของความรักที่ลึกซึ้งและหรูหรา ทุกกลีบดอกกุหลาบสื่อถึงหัวใจที่เต้นเพื่อเธอคนเดียว ความรักที่มีให้นั้นแรงกล้าและไม่มีวันจางหาย 🖤🌹'
+                    message: 'กุหลาบแดงในห่อสีดำ เป็นสัญลักษณ์ของความรักที่ลึกซึ้งและหรูหรา ทุกกลีบดอกกุหลาบสื่อถึงหัวใจที่เต้นเพื่อเธอคนเดียว ความรักที่มีให้นั้นแรงกล้าและไม่มีวันจางหาย ♥'
                 },
                 {
                     image: 'b02.jpg',
-                    emoji: '💕',
+                    emoji: '♥',
                     title: 'ได้ช่อกุหลาบชมพูในห่อขาวสวยๆ!',
-                    message: 'กุหลาบชมพูในห่อสีขาว บริสุทธิ์และอ่อนหวานดังดวงใจ ทุกดอกเป็นตัวแทนของความรู้สึกที่อ่อนโยนและจริงใจ เหมือนสัมผัสแรกที่ทำให้หัวใจเต้นแรง รอวันที่ได้มอบดอกไม้นี้ให้ด้วยมือตัวเอง 🤍💗'
+                    message: 'กุหลาบชมพูในห่อสีขาว บริสุทธิ์และอ่อนหวานดังดวงใจ ทุกดอกเป็นตัวแทนของความรู้สึกที่อ่อนโยนและจริงใจ เหมือนสัมผัสแรกที่ทำให้หัวใจเต้นแรง รอวันที่ได้มอบดอกไม้นี้ให้ด้วยมือตัวเอง ♡'
                 },
                 {
                     image: 'b04.jpg',
-                    emoji: '🌸',
+                    emoji: '❀',
                     title: 'ได้ช่อพีโอนีชมพูในห่อดำสวยๆ!',
-                    message: 'พีโอนีชมพูในห่อสีดำ สง่างามและเต็มไปด้วยความหมาย ดอกพีโอนีคือสัญลักษณ์ของความโรแมนติกและความสุขที่ยั่งยืน ทุกกลีบดอกกระซิบบอกเล่าว่า...อยากให้เราได้ใช้เวลาร่วมกันมากขึ้น 🖤🌸'
+                    message: 'พีโอนีชมพูในห่อสีดำ สง่างามและเต็มไปด้วยความหมาย ดอกพีโอนีคือสัญลักษณ์ของความโรแมนติกและความสุขที่ยั่งยืน ทุกกลีบดอกกระซิบบอกเล่าว่า...อยากให้เราได้ใช้เวลาร่วมกันมากขึ้น ✿'
                 }
             ];
             
             const selectedGift = gifts[boxIndex];
             
-            // อัพเดทข้อความ
             finalTitle.textContent = selectedGift.title;
             finalGiftMessage.textContent = selectedGift.message;
-            
-            // ตั้งค่ารูป
             bouquetImg.src = selectedGift.image;
             
-            // Check if image exists and loads successfully
             bouquetImg.onerror = function() {
-                // If image fails to load, show emoji instead
                 bouquetImg.style.display = 'none';
                 giftEmoji.style.display = 'block';
                 giftEmoji.textContent = selectedGift.emoji;
             };
             
             bouquetImg.onload = function() {
-                // Image loaded successfully
                 bouquetImg.style.display = 'block';
                 giftEmoji.style.display = 'none';
             };
             
-            // Hide gift selection and show final message
             giftSelection.classList.remove('active');
             finalMessage.classList.add('active');
-            
-            // Create more confetti
             createConfetti();
         }
 
-        // Simple confetti effect
         function createConfetti() {
             const confettiCount = 50;
-            const confettiChars = ['🎉', '✨', '💕', '⭐', '💖'];
+            const confettiChars = ['✨', '♥', '♡', '★', '☆'];
             
             for (let i = 0; i < confettiCount; i++) {
                 setTimeout(() => {
