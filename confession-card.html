@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>มีเรื่องอยากบอก 💝</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Sarabun', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffd4e5 50%, #ffb3d9 100%);
+            padding: 20px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        /* Floating hearts background */
+        .heart-bg {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0.1;
+            animation: float 15s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.1;
+            }
+            90% {
+                opacity: 0.1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 50px 40px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(255, 107, 157, 0.3);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            animation: cardEntry 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes cardEntry {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .emoji {
+            font-size: 64px;
+            margin-bottom: 24px;
+            display: inline-block;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        h1 {
+            color: #ff6b9d;
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .message {
+            color: #333;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            min-height: 200px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 600px) {
+            .button-container {
+                min-height: 180px;
+            }
+        }
+
+        button {
+            padding: 16px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            position: relative;
+        }
+
+        .yes-btn {
+            background: linear-gradient(135deg, #ff6b9d, #ff8fab);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+        }
+
+        .yes-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 157, 0.6);
+        }
+
+        .yes-btn:active {
+            transform: translateY(0);
+        }
+
+        .no-btn {
+            background: #f0f0f0;
+            color: #666;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            transition: left 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55), 
+                        top 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+                        transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+                        background 0.15s ease;
+        }
+
+        .no-btn:hover {
+            background: #e0e0e0;
+        }
+
+        /* Success state */
+        .success-message {
+            display: none;
+            animation: successEntry 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes successEntry {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .success-message.active {
+            display: block;
+        }
+
+        .success-emoji {
+            font-size: 80px;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: celebrate 0.6s ease-out;
+        }
+
+        @keyframes celebrate {
+            0% {
+                transform: scale(0) rotate(0deg);
+            }
+            50% {
+                transform: scale(1.2) rotate(180deg);
+            }
+            100% {
+                transform: scale(1) rotate(360deg);
+            }
+        }
+
+        .success-text {
+            color: #333;
+            font-size: 20px;
+            line-height: 1.6;
+        }
+
+        /* Gift selection screen */
+        .gift-selection {
+            display: none;
+            animation: successEntry 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .gift-selection.active {
+            display: block;
+        }
+
+        .gift-title {
+            color: #ff6b9d;
+            font-size: 26px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .gift-subtitle {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .gift-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .gift-btn {
+            background: linear-gradient(135deg, #ffd93d, #ffed4e);
+            color: #333;
+            padding: 20px;
+            font-size: 48px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 217, 61, 0.4);
+            min-width: 100px;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gift-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 217, 61, 0.6);
+        }
+
+        .gift-btn:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        /* Final gift reveal */
+        .final-message {
+            display: none;
+            animation: successEntry 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .final-message.active {
+            display: block;
+        }
+
+        .gift-card {
+            background: linear-gradient(135deg, #fff5f7, #ffe8ec);
+            border: 3px solid #ff6b9d;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.2);
+        }
+
+        .gift-image {
+            font-size: 120px;
+            margin: 20px 0;
+            display: block;
+            animation: floatGift 3s ease-in-out infinite;
+        }
+
+        @keyframes floatGift {
+            0%, 100% {
+                transform: translateY(0) rotate(-5deg);
+            }
+            50% {
+                transform: translateY(-15px) rotate(5deg);
+            }
+        }
+
+        .gift-message {
+            color: #333;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .gift-btn {
+                min-width: 85px;
+                min-height: 85px;
+                font-size: 42px;
+            }
+
+            .gift-image {
+                font-size: 100px;
+            }
+
+            .gift-card {
+                padding: 30px 20px;
+            }
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+
+            .card {
+                padding: 35px 25px;
+                border-radius: 20px;
+            }
+
+            .emoji {
+                font-size: 52px;
+                margin-bottom: 20px;
+            }
+
+            h1 {
+                font-size: 22px;
+                margin-bottom: 16px;
+            }
+
+            .message {
+                font-size: 16px;
+                line-height: 1.5;
+                margin-bottom: 32px;
+            }
+
+            .button-container {
+                min-height: 200px;
+                gap: 12px;
+                margin-top: 15px;
+            }
+
+            button {
+                padding: 14px 28px;
+                font-size: 16px;
+                border-radius: 25px;
+                min-width: 120px;
+            }
+
+            .success-emoji {
+                font-size: 64px;
+            }
+
+            .success-text {
+                font-size: 17px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .card {
+                padding: 30px 20px;
+            }
+
+            .emoji {
+                font-size: 48px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .message {
+                font-size: 15px;
+            }
+
+            button {
+                padding: 12px 24px;
+                font-size: 15px;
+                min-width: 110px;
+            }
+
+            .button-container {
+                min-height: 180px;
+            }
+        }
+
+        /* Prevent text selection on mobile when tapping buttons */
+        button {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Card container -->
+    <div class="card">
+        <div id="question-content">
+            <div class="emoji">💝</div>
+            <h1>มีเรื่องอยากบอก...</h1>
+            <p class="message">
+                คิดมานานแล้วนะ... ชอบอยู่ด้วยกันกับเธอมากๆ 
+                ไปเดทกับเราได้ไหม? 🥰
+            </p>
+            <div class="button-container" id="buttonContainer">
+                <button class="yes-btn" id="yesBtn">ได้สิ! 💕</button>
+                <button class="no-btn" id="noBtn">ไม่ได้น่า</button>
+            </div>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            <div class="success-emoji">🎉</div>
+            <h1>เย่! ดีใจมากเลย!</h1>
+            <p class="success-text">
+                ขอบคุณที่ตอบตกลงนะ! 😊<br>
+                เป็นของขวัญน้อยๆ เลือกกล่องด้านล่างสักกล่องนึงเลย! 🎁
+            </p>
+        </div>
+
+        <div class="gift-selection" id="giftSelection">
+            <h2 class="gift-title">เลือกของขวัญสิ! 🎁</h2>
+            <p class="gift-subtitle">เลือกกล่องลึกลับด้านล่างสักกล่อง</p>
+            <div class="gift-buttons">
+                <button class="gift-btn" onclick="revealGift(0)">🎁</button>
+                <button class="gift-btn" onclick="revealGift(1)">🎁</button>
+                <button class="gift-btn" onclick="revealGift(2)">🎁</button>
+            </div>
+        </div>
+
+        <div class="final-message" id="finalMessage">
+            <div class="success-emoji">✨</div>
+            <h1>ได้ช่อดอกไม้สวยๆ!</h1>
+            <div class="gift-card">
+                <span class="gift-image">💐</span>
+                <p class="gift-message">
+                    ดอกไม้พวกนี้เป็นตัวแทนความรู้สึกที่มีให้ - สวยงาม จริงใจ และเต็มไปด้วยความหวัง 
+                    รอไปเดทกันไม่ไหวแล้ว! 🌸
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts in background
+        function createFloatingHearts() {
+            const hearts = ['💕', '💖', '💗', '💝', '❤️', '💓'];
+            const body = document.body;
+            
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart-bg';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 15 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                body.appendChild(heart);
+            }
+        }
+
+        createFloatingHearts();
+
+        // Button interaction logic
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const buttonContainer = document.getElementById('buttonContainer');
+        const questionContent = document.getElementById('question-content');
+        const successMessage = document.getElementById('successMessage');
+        const giftSelection = document.getElementById('giftSelection');
+        const finalMessage = document.getElementById('finalMessage');
+
+        // Different flower bouquets (all are flowers)
+        const flowers = ['💐', '🌹', '🌺', '🌻', '🌷', '🌸', '🏵️', '💮'];
+
+        let noDodgeCount = 0;
+        const noTexts = [
+            'ไม่ได้น่า',
+            'แน่ใจแล้วเหรอ? 🤔',
+            'จริงๆ เหรอ? 😢',
+            'ลองคิดใหม่ดูสิ! 💭',
+            'ได้มั้ยยยย? 🥺',
+            'ขอโอกาสสักครั้งได้มั้ย? 🙏',
+            'สนุกแน่ๆ เลย! 😊',
+            'อ้อนน่า... 😔',
+            'หัวใจจะแตก 💔',
+            'อีกทีนึงได้มั้ย? 🎯',
+            'ไม่ยอมแพ้! 💪',
+            'ลองคิดดูอีกทีสิ? 🤗',
+            'ได้โปรดเถอะ? 😇',
+            'เชื่อมั่นในเราเลย! ✨',
+            'อย่าอายน่า! 😳',
+            'เสี่ยงสักครั้งสิ! 🎲',
+            'รู้ว่าอยากกดใช่ 😏',
+            'โอกาสสุดท้าย? ⭐',
+            'ไม่ยอมแพ้หรอก! 🔥',
+            'ปุ่มใช่อยู่ตรงนั้น → 👀'
+        ];
+
+        // Preset positions for No button (20 positions spread across the container)
+        const presetPositions = [
+            { x: '5%', y: '0%' },      // Top left
+            { x: '25%', y: '0%' },     // Top left-center
+            { x: '50%', y: '0%' },     // Top center
+            { x: '75%', y: '0%' },     // Top right-center
+            { x: '95%', y: '0%' },     // Top right
+            { x: '0%', y: '25%' },     // Left upper
+            { x: '30%', y: '25%' },    // Center-left upper
+            { x: '70%', y: '25%' },    // Center-right upper
+            { x: '100%', y: '25%' },   // Right upper
+            { x: '5%', y: '50%' },     // Left middle
+            { x: '95%', y: '50%' },    // Right middle
+            { x: '0%', y: '75%' },     // Left lower
+            { x: '30%', y: '75%' },    // Center-left lower
+            { x: '70%', y: '75%' },    // Center-right lower
+            { x: '100%', y: '75%' },   // Right lower
+            { x: '5%', y: '100%' },    // Bottom left
+            { x: '25%', y: '100%' },   // Bottom left-center
+            { x: '50%', y: '100%' },   // Bottom center
+            { x: '75%', y: '100%' },   // Bottom right-center
+            { x: '95%', y: '100%' }    // Bottom right
+        ];
+        
+        let lastPositionIndex = -1;
+        
+        // Function to get a position in opposite quadrant from current position
+        function getOppositeQuadrantPosition() {
+            const container = buttonContainer.getBoundingClientRect();
+            const button = noBtn.getBoundingClientRect();
+            
+            // Calculate current position as percentage
+            const currentXPercent = ((button.left - container.left) / container.width) * 100;
+            const currentYPercent = ((button.top - container.top) / container.height) * 100;
+            
+            // Determine current quadrant (0=top-left, 1=top-right, 2=bottom-left, 3=bottom-right)
+            const currentQuadrant = (currentYPercent > 50 ? 2 : 0) + (currentXPercent > 50 ? 1 : 0);
+            
+            // Filter positions in opposite quadrants
+            let availablePositions = presetPositions.map((pos, idx) => ({ pos, idx })).filter((item, idx) => {
+                const xPercent = parseFloat(item.pos.x);
+                const yPercent = parseFloat(item.pos.y);
+                const quadrant = (yPercent > 50 ? 2 : 0) + (xPercent > 50 ? 1 : 0);
+                
+                // Choose positions from opposite corner quadrants
+                const isOpposite = Math.abs(quadrant - currentQuadrant) === 3 || // Diagonal opposite
+                                   Math.abs(quadrant - currentQuadrant) === 2;   // Adjacent opposite
+                
+                return isOpposite && idx !== lastPositionIndex;
+            });
+            
+            // If no opposite positions available, use any position except last
+            if (availablePositions.length === 0) {
+                availablePositions = presetPositions.map((pos, idx) => ({ pos, idx }))
+                    .filter((item, idx) => idx !== lastPositionIndex);
+            }
+            
+            // Pick random position from available ones
+            const selected = availablePositions[Math.floor(Math.random() * availablePositions.length)];
+            lastPositionIndex = selected.idx;
+            
+            return selected.pos;
+        }
+
+        // Move No button on hover/touch
+        let isMoving = false;
+        function moveNoButton() {
+            if (isMoving) return; // Prevent multiple simultaneous moves
+            isMoving = true;
+            
+            const pos = getOppositeQuadrantPosition();
+            
+            // Use percentage-based positioning for better responsiveness
+            noBtn.style.left = pos.x;
+            noBtn.style.top = pos.y;
+            noBtn.style.transform = 'translate(-50%, -50%)'; // Center the button on the position
+            
+            // Update text based on dodge count
+            noDodgeCount++;
+            const textIndex = Math.min(noDodgeCount, noTexts.length - 1);
+            noBtn.textContent = noTexts[textIndex];
+            
+            // Reset moving flag after animation
+            setTimeout(() => {
+                isMoving = false;
+            }, 200);
+        }
+
+        // Event listeners for No button
+        noBtn.addEventListener('mouseenter', moveNoButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveNoButton();
+        });
+
+        // Click event might still happen on mobile, so handle it
+        noBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            moveNoButton();
+        });
+
+        // Yes button click handler
+        yesBtn.addEventListener('click', () => {
+            questionContent.style.display = 'none';
+            successMessage.classList.add('active');
+            
+            // Create confetti effect
+            createConfetti();
+
+            // Show gift selection after 2 seconds
+            setTimeout(() => {
+                successMessage.classList.remove('active');
+                giftSelection.classList.add('active');
+            }, 2000);
+        });
+
+        // Reveal gift function
+        function revealGift(boxIndex) {
+            // Pick a random flower
+            const randomFlower = flowers[Math.floor(Math.random() * flowers.length)];
+            
+            // Update the gift image
+            const giftImage = document.querySelector('.gift-image');
+            giftImage.textContent = randomFlower;
+            
+            // Hide gift selection and show final message
+            giftSelection.classList.remove('active');
+            finalMessage.classList.add('active');
+            
+            // Create more confetti
+            createConfetti();
+        }
+
+        // Simple confetti effect
+        function createConfetti() {
+            const confettiCount = 50;
+            const confettiChars = ['🎉', '✨', '💕', '⭐', '💖'];
+            
+            for (let i = 0; i < confettiCount; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'heart-bg';
+                    confetti.textContent = confettiChars[Math.floor(Math.random() * confettiChars.length)];
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = '-50px';
+                    confetti.style.fontSize = (Math.random() * 25 + 15) + 'px';
+                    confetti.style.opacity = '0.8';
+                    confetti.style.animation = 'float 3s ease-out forwards';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 50);
+            }
+        }
+
+        // Set initial No button position
+        window.addEventListener('load', () => {
+            // Wait a bit for layout to stabilize
+            setTimeout(() => {
+                const isMobile = window.innerWidth <= 600;
+                
+                if (isMobile) {
+                    // On mobile, position at bottom center (position index 17)
+                    noBtn.style.left = '50%';
+                    noBtn.style.top = '100%';
+                    noBtn.style.transform = 'translate(-50%, -50%)';
+                } else {
+                    // On desktop, position at right middle (position index 10)
+                    noBtn.style.left = '95%';
+                    noBtn.style.top = '50%';
+                    noBtn.style.transform = 'translate(-50%, -50%)';
+                }
+                lastPositionIndex = isMobile ? 17 : 10;
+            }, 100);
+        });
+        
+        // Recalculate position on window resize
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                const isMobile = window.innerWidth <= 600;
+                
+                if (isMobile) {
+                    noBtn.style.left = '50%';
+                    noBtn.style.top = '100%';
+                    noBtn.style.transform = 'translate(-50%, -50%)';
+                    lastPositionIndex = 17;
+                } else {
+                    noBtn.style.left = '95%';
+                    noBtn.style.top = '50%';
+                    noBtn.style.transform = 'translate(-50%, -50%)';
+                    lastPositionIndex = 10;
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>
