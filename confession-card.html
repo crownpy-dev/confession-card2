@@ -113,16 +113,18 @@
             display: flex;
             gap: 16px;
             justify-content: center;
-            flex-wrap: wrap;
+            align-items: flex-start;
+            flex-wrap: nowrap;
             position: relative;
-            min-height: 200px;
+            min-height: 60px;
             width: 100%;
             margin-top: 20px;
         }
         
         @media (max-width: 600px) {
             .button-container {
-                min-height: 180px;
+                min-height: 60px;
+                flex-wrap: wrap;
             }
         }
 
@@ -136,12 +138,14 @@
             transition: all 0.3s ease;
             font-family: inherit;
             position: relative;
+            flex-shrink: 0;
         }
 
         .yes-btn {
             background: linear-gradient(135deg, #ff6b9d, #ff8fab);
             color: white;
             box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+            position: static;
         }
 
         .yes-btn:hover {
@@ -157,11 +161,15 @@
             background: #f0f0f0;
             color: #666;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: static;
+            transition: background 0.15s ease;
+        }
+
+        .no-btn.moving {
             position: absolute;
             transition: left 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55), 
                         top 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55),
-                        transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55),
-                        background 0.15s ease;
+                        transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
         .no-btn:hover {
@@ -297,12 +305,24 @@
             animation: floatGift 3s ease-in-out infinite;
         }
 
+        /* Image for bouquet */
+        .bouquet-image {
+            max-width: 100%;
+            height: auto;
+            max-height: 300px;
+            margin: 20px auto;
+            display: block;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: floatGift 3s ease-in-out infinite;
+        }
+
         @keyframes floatGift {
             0%, 100% {
-                transform: translateY(0) rotate(-5deg);
+                transform: translateY(0) rotate(-2deg);
             }
             50% {
-                transform: translateY(-15px) rotate(5deg);
+                transform: translateY(-15px) rotate(2deg);
             }
         }
 
@@ -311,6 +331,30 @@
             font-size: 18px;
             line-height: 1.6;
             margin-top: 20px;
+        }
+
+        /* Contact button */
+        .contact-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 16px 40px;
+            background: linear-gradient(135deg, #ff6b9d, #ff8fab);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 157, 0.6);
+        }
+
+        .contact-btn:active {
+            transform: translateY(0);
         }
 
         @media (max-width: 600px) {
@@ -322,6 +366,10 @@
 
             .gift-image {
                 font-size: 100px;
+            }
+
+            .bouquet-image {
+                max-height: 200px;
             }
 
             .gift-card {
@@ -357,7 +405,7 @@
             }
 
             .button-container {
-                min-height: 200px;
+                min-height: 60px;
                 gap: 12px;
                 margin-top: 15px;
             }
@@ -375,6 +423,11 @@
 
             .success-text {
                 font-size: 17px;
+            }
+
+            .contact-btn {
+                padding: 14px 32px;
+                font-size: 16px;
             }
         }
 
@@ -402,7 +455,7 @@
             }
 
             .button-container {
-                min-height: 180px;
+                min-height: 60px;
             }
         }
 
@@ -422,8 +475,7 @@
             <div class="emoji">💝</div>
             <h1>มีเรื่องอยากบอก...</h1>
             <p class="message">
-                คิดมานานแล้วนะ... ชอบอยู่ด้วยกันกับเธอมากๆ 
-                ไปเดทกับเราได้ไหม? 🥰
+               will you be my valentine 🥰
             </p>
             <div class="button-container" id="buttonContainer">
                 <button class="yes-btn" id="yesBtn">ได้สิ! 💕</button>
@@ -454,11 +506,20 @@
             <div class="success-emoji">✨</div>
             <h1>ได้ช่อดอกไม้สวยๆ!</h1>
             <div class="gift-card">
-                <span class="gift-image">💐</span>
+                <!-- ใส่รูปช่อดอกไม้ตรงนี้ - เปลี่ยน src ให้เป็น path รูปของคุณ -->
+                <img src="bouquet.jpg" alt="Beautiful Bouquet" class="bouquet-image" id="bouquetImage">
+                <!-- หรือใช้ emoji แทนถ้าไม่มีรูป -->
+                <span class="gift-image" id="giftEmoji" style="display: none;">💐</span>
+                
                 <p class="gift-message">
                     ดอกไม้พวกนี้เป็นตัวแทนความรู้สึกที่มีให้ - สวยงาม จริงใจ และเต็มไปด้วยความหวัง 
                     รอไปเดทกันไม่ไหวแล้ว! 🌸
                 </p>
+                
+                <!-- ปุ่มติดต่อ - เปลี่ยน href เป็นลิงก์ที่ต้องการ -->
+                <a href="https://line.me/ti/p/YOUR_LINE_ID" class="contact-btn" target="_blank">
+                    ติดต่อเรา 💌
+                </a>
             </div>
         </div>
     </div>
@@ -495,6 +556,7 @@
         const flowers = ['💐', '🌹', '🌺', '🌻', '🌷', '🌸', '🏵️', '💮'];
 
         let noDodgeCount = 0;
+        let isNoBtnMoving = false;
         const noTexts = [
             'ไม่ได้น่า',
             'แน่ใจแล้วเหรอ? 🤔',
@@ -515,67 +577,37 @@
             'รู้ว่าอยากกดใช่ 😏',
             'โอกาสสุดท้าย? ⭐',
             'ไม่ยอมแพ้หรอก! 🔥',
-            'ปุ่มใช่อยู่ตรงนั้น → 👀'
+            'ปุ่มใช่อยู่ตรงนั้น → 👀',
+            'เริ่ด'
         ];
 
-        // Preset positions for No button (20 positions spread across the container)
+        // Preset positions for No button (spread across the container)
         const presetPositions = [
-            { x: '5%', y: '0%' },      // Top left
-            { x: '25%', y: '0%' },     // Top left-center
-            { x: '50%', y: '0%' },     // Top center
-            { x: '75%', y: '0%' },     // Top right-center
-            { x: '95%', y: '0%' },     // Top right
-            { x: '0%', y: '25%' },     // Left upper
-            { x: '30%', y: '25%' },    // Center-left upper
-            { x: '70%', y: '25%' },    // Center-right upper
-            { x: '100%', y: '25%' },   // Right upper
-            { x: '5%', y: '50%' },     // Left middle
-            { x: '95%', y: '50%' },    // Right middle
-            { x: '0%', y: '75%' },     // Left lower
-            { x: '30%', y: '75%' },    // Center-left lower
-            { x: '70%', y: '75%' },    // Center-right lower
-            { x: '100%', y: '75%' },   // Right lower
-            { x: '5%', y: '100%' },    // Bottom left
-            { x: '25%', y: '100%' },   // Bottom left-center
-            { x: '50%', y: '100%' },   // Bottom center
-            { x: '75%', y: '100%' },   // Bottom right-center
-            { x: '95%', y: '100%' }    // Bottom right
+            { x: '10%', y: '10%' },
+            { x: '30%', y: '10%' },
+            { x: '50%', y: '10%' },
+            { x: '70%', y: '10%' },
+            { x: '90%', y: '10%' },
+            { x: '10%', y: '30%' },
+            { x: '90%', y: '30%' },
+            { x: '10%', y: '50%' },
+            { x: '90%', y: '50%' },
+            { x: '10%', y: '70%' },
+            { x: '90%', y: '70%' },
+            { x: '10%', y: '90%' },
+            { x: '30%', y: '90%' },
+            { x: '50%', y: '90%' },
+            { x: '70%', y: '90%' },
+            { x: '90%', y: '90%' }
         ];
         
         let lastPositionIndex = -1;
         
-        // Function to get a position in opposite quadrant from current position
-        function getOppositeQuadrantPosition() {
-            const container = buttonContainer.getBoundingClientRect();
-            const button = noBtn.getBoundingClientRect();
+        // Function to get a random position different from current
+        function getRandomPosition() {
+            let availablePositions = presetPositions.map((pos, idx) => ({ pos, idx }))
+                .filter((item, idx) => idx !== lastPositionIndex);
             
-            // Calculate current position as percentage
-            const currentXPercent = ((button.left - container.left) / container.width) * 100;
-            const currentYPercent = ((button.top - container.top) / container.height) * 100;
-            
-            // Determine current quadrant (0=top-left, 1=top-right, 2=bottom-left, 3=bottom-right)
-            const currentQuadrant = (currentYPercent > 50 ? 2 : 0) + (currentXPercent > 50 ? 1 : 0);
-            
-            // Filter positions in opposite quadrants
-            let availablePositions = presetPositions.map((pos, idx) => ({ pos, idx })).filter((item, idx) => {
-                const xPercent = parseFloat(item.pos.x);
-                const yPercent = parseFloat(item.pos.y);
-                const quadrant = (yPercent > 50 ? 2 : 0) + (xPercent > 50 ? 1 : 0);
-                
-                // Choose positions from opposite corner quadrants
-                const isOpposite = Math.abs(quadrant - currentQuadrant) === 3 || // Diagonal opposite
-                                   Math.abs(quadrant - currentQuadrant) === 2;   // Adjacent opposite
-                
-                return isOpposite && idx !== lastPositionIndex;
-            });
-            
-            // If no opposite positions available, use any position except last
-            if (availablePositions.length === 0) {
-                availablePositions = presetPositions.map((pos, idx) => ({ pos, idx }))
-                    .filter((item, idx) => idx !== lastPositionIndex);
-            }
-            
-            // Pick random position from available ones
             const selected = availablePositions[Math.floor(Math.random() * availablePositions.length)];
             lastPositionIndex = selected.idx;
             
@@ -583,17 +615,23 @@
         }
 
         // Move No button on hover/touch
-        let isMoving = false;
         function moveNoButton() {
-            if (isMoving) return; // Prevent multiple simultaneous moves
-            isMoving = true;
+            if (isNoBtnMoving) return;
+            isNoBtnMoving = true;
             
-            const pos = getOppositeQuadrantPosition();
+            // Add moving class to change positioning to absolute
+            noBtn.classList.add('moving');
             
-            // Use percentage-based positioning for better responsiveness
+            // Get new position
+            const pos = getRandomPosition();
+            
+            // Expand container if needed
+            buttonContainer.style.minHeight = '200px';
+            
+            // Use percentage-based positioning
             noBtn.style.left = pos.x;
             noBtn.style.top = pos.y;
-            noBtn.style.transform = 'translate(-50%, -50%)'; // Center the button on the position
+            noBtn.style.transform = 'translate(-50%, -50%)';
             
             // Update text based on dodge count
             noDodgeCount++;
@@ -602,8 +640,8 @@
             
             // Reset moving flag after animation
             setTimeout(() => {
-                isMoving = false;
-            }, 200);
+                isNoBtnMoving = false;
+            }, 300);
         }
 
         // Event listeners for No button
@@ -613,7 +651,6 @@
             moveNoButton();
         });
 
-        // Click event might still happen on mobile, so handle it
         noBtn.addEventListener('click', (e) => {
             e.preventDefault();
             moveNoButton();
@@ -636,12 +673,23 @@
 
         // Reveal gift function
         function revealGift(boxIndex) {
-            // Pick a random flower
-            const randomFlower = flowers[Math.floor(Math.random() * flowers.length)];
+            const bouquetImg = document.getElementById('bouquetImage');
+            const giftEmoji = document.getElementById('giftEmoji');
             
-            // Update the gift image
-            const giftImage = document.querySelector('.gift-image');
-            giftImage.textContent = randomFlower;
+            // Check if image exists and loads successfully
+            bouquetImg.onerror = function() {
+                // If image fails to load, show emoji instead
+                bouquetImg.style.display = 'none';
+                giftEmoji.style.display = 'block';
+                const randomFlower = flowers[Math.floor(Math.random() * flowers.length)];
+                giftEmoji.textContent = randomFlower;
+            };
+            
+            bouquetImg.onload = function() {
+                // Image loaded successfully
+                bouquetImg.style.display = 'block';
+                giftEmoji.style.display = 'none';
+            };
             
             // Hide gift selection and show final message
             giftSelection.classList.remove('active');
@@ -672,48 +720,6 @@
                 }, i * 50);
             }
         }
-
-        // Set initial No button position
-        window.addEventListener('load', () => {
-            // Wait a bit for layout to stabilize
-            setTimeout(() => {
-                const isMobile = window.innerWidth <= 600;
-                
-                if (isMobile) {
-                    // On mobile, position at bottom center (position index 17)
-                    noBtn.style.left = '50%';
-                    noBtn.style.top = '100%';
-                    noBtn.style.transform = 'translate(-50%, -50%)';
-                } else {
-                    // On desktop, position at right middle (position index 10)
-                    noBtn.style.left = '95%';
-                    noBtn.style.top = '50%';
-                    noBtn.style.transform = 'translate(-50%, -50%)';
-                }
-                lastPositionIndex = isMobile ? 17 : 10;
-            }, 100);
-        });
-        
-        // Recalculate position on window resize
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                const isMobile = window.innerWidth <= 600;
-                
-                if (isMobile) {
-                    noBtn.style.left = '50%';
-                    noBtn.style.top = '100%';
-                    noBtn.style.transform = 'translate(-50%, -50%)';
-                    lastPositionIndex = 17;
-                } else {
-                    noBtn.style.left = '95%';
-                    noBtn.style.top = '50%';
-                    noBtn.style.transform = 'translate(-50%, -50%)';
-                    lastPositionIndex = 10;
-                }
-            }, 100);
-        });
     </script>
 </body>
 </html>
